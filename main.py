@@ -9,19 +9,23 @@ environment_path = f"./environments/{config.get('environment_name')}.json"
 collections_folder = "./collections"
 
 
-def main():
+
+def initial_check():
     print("Welcome to the Auto Postman CLI!")
     print("Starting Postman collections...")
-    line_notify_message = ""
-    utils.check_files()
     utils.check_folders()
+    utils.check_files()
+
+
+
+def main():
+    line_notify_message = ""
     collections = [f for f in os.listdir(collections_folder) if f.endswith(".json")]
     today_folder = utils.create_log_folder()
     total_collections = len(collections)
     current_collection = 0
     max_lines = 10000
     collections_with_failures = []
-
     for collection_name in collections:
         current_collection += 1
         collection_name_without_extension, collection_output, collection_results_file, line_count = (
@@ -58,4 +62,5 @@ def main():
 
 
 if __name__ == "__main__":
+    initial_check()
     main()

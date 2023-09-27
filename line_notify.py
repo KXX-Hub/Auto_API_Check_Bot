@@ -6,9 +6,9 @@ token = config.get('line_notify_token')
 
 
 def send_message(message):
-    """Send message to LINE Notify.
-    :param int sub_num: Subscribed sync channels num.
+    """Send a message via LINE Notify.
     :param str message: Message to send.
+    :return: None
     """
     headers = {"Authorization": "Bearer " + token}
     data = {'message': message}
