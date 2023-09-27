@@ -10,7 +10,10 @@ collections_folder = "./collections"
 
 
 def main():
+    print("Welcome to the Auto Postman CLI!")
+    print("Starting Postman collections...")
     line_notify_message = ""
+    utils.check_files()
     utils.check_folders()
     collections = [f for f in os.listdir(collections_folder) if f.endswith(".json")]
     today_folder = utils.create_log_folder()
@@ -18,8 +21,7 @@ def main():
     current_collection = 0
     max_lines = 10000
     collections_with_failures = []
-    print("Welcome to the Auto Postman CLI!")
-    print("Starting Postman collections...")
+
     for collection_name in collections:
         current_collection += 1
         collection_name_without_extension, collection_output, collection_results_file, line_count = (
@@ -29,7 +31,10 @@ def main():
         if "Error" in collection_output:
             collections_with_failures.append(collection_name_without_extension)
 
-        if line_count > max_lines:
+        elif "failures" in collection_output:
+            collections_with_failures.append(collection_name_without_extension)
+
+        elif line_count > max_lines:
             utils.split_and_remove_log_file(collection_results_file, line_count, max_lines)
             os.remove(collection_results_file)
 

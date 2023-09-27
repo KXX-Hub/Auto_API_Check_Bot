@@ -52,6 +52,25 @@ def read_config():
         sys.exit()
 
 
+def check_files():
+    """Check if the environments folder and collections folder is empty.
+    :return: None
+    """
+    # Define the folder names
+    environments_folder = "environments"
+    collections_folder = "collections"
+
+    # Check if the "environments" folder is empty
+    if not os.listdir(environments_folder):
+        print(f"Error: The '{environments_folder}' folder is empty. Exiting.")
+        sys.exit(1)
+
+    # Check if the "collections" folder is empty
+    if not os.listdir(collections_folder):
+        print(f"Error: The '{collections_folder}' folder is empty. Exiting.")
+        sys.exit(1)
+
+
 def check_folders():
     """Check if the required folders exist, and create them if they don't.
     :return: None

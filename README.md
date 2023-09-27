@@ -1,0 +1,1 @@
+# This Project can automatically check the status of API and send notify when comes to error.
