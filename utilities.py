@@ -4,10 +4,8 @@ import os
 import re
 import sys
 from os.path import exists
-import postman_cli as postman
 import yaml
 from yaml import SafeLoader
-import line_notify as line
 
 
 def config_file_generator():
@@ -195,33 +193,4 @@ def split_and_remove_log_file(collection_results_file, line_count, max_lines):
                 split_file.writelines(current_split)
 
 
-def get_collections_with_failures(collections, collections_folder, environment_path, max_lines, today_folder):
-    collections_with_failures = []
-    for collection_name in collections:
-        collection_name_without_extension, collection_output, _, line_count = postman.run_postman_collection(
-            collection_name, collections_folder, environment_path, today_folder, max_lines)
-        print()
 
-        if "Error" in collection_output or "failures" in collection_output:
-            collections_with_failures.append(collection_name_without_extension)
-
-    return collections_with_failures
-
-
-def create_and_send_line_notify_message(collections_with_failures):
-    if collections_with_failures:
-        line_notify_message = "API Error \n" \
-                              "----------------------------------\n" \
-                              "Failures in the following collections:\n\n"
-        for collection in collections_with_failures:
-            collection_name = collection.replace('.postman_collection', "")
-            line_notify_message += f"{collection_name}\n"
-
-    elif not collections_with_failures:
-        formatted_date = datetime.datetime.now().strftime("%Y/%m/%d")
-        line_notify_message = f"{formatted_date}\nAll collections completed"
-
-    else:
-        line_notify_message = "Something went wrong. Please check the log files."
-
-    line.send_message(line_notify_message)

@@ -1,10 +1,9 @@
 import subprocess
 import os
 import utilities as utils
-
 config = utils.read_config()
-is_api_20 = utils.str_to_bool(config.get('api_2.0'))
-is_api_14 = utils.str_to_bool(config.get('api_1.4'))
+is_api_20 = utils.str_to_bool(utils.read_config().get('api_2.0'))
+is_api_14 = utils.str_to_bool(utils.read_config().get('api_1.4'))
 
 
 def run_postman_collection(collection_name, collections_folder, environment_path, today_folder):
