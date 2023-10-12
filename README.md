@@ -8,11 +8,11 @@
 
 1. 前往 https://notify-bot.line.me/en/ 並使用您的 Line 帳號登錄。
 2. 點擊「我的頁面」 > 生成 Token。
-   <img width="700" src="./readme_imgs/1.jpg">
+   <img width="700" src="./readme_imgs/Login_CN.jpg">
 3. 填入機器人名稱和聊天室名稱，並點擊生成權杖。
-   <img width="700" src="./readme_imgs/2.jpg">
+   <img width="700" src="./readme_imgs/Generate_Token_CN.jpg">
 4. 複製權杖並填入 config.yaml 檔案中。
-   <img width="700" src="./readme_imgs/3.jpg">
+   <img width="700" src="./readme_imgs/Copy_Token_CN.jpg">
 
 ### Requirements
 
@@ -90,11 +90,11 @@ api_data:
 
 1. Go to https://notify-bot.line.me/en/ and login with your Line account.
 2. Click on My Page > Generate Token.
-   <img width="700" src="./readme_imgs/1.jpg">
+   <img width="700" src="./readme_imgs/Login_EN.jpg">
 3. Enter a name for the token and click on Generate Token.
-   <img width="700" src="./readme_imgs/2.jpg">
+   <img width="700" src="./readme_imgs/Generate_Token_EN.jpg">
 4. Copy the token and paste it in config.yaml.
-   <img width="700" src="./readme_imgs/3.jpg">
+   <img width="700" src="./readme_imgs/Copy_Token_EN.jpg">
 
 ### Requirements
 
