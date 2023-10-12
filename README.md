@@ -1,4 +1,4 @@
-# API 例行功能檢查檢查機器人
+# API例行功能檢查檢查機器人
 
 📖[英文版README.md](#APIAutoCheckBot)📖
 
@@ -80,7 +80,7 @@ api_data:
 
 如果您有任何建議或發現任何問題，請在[Issues](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/issues)提交您的反饋，我會盡快回覆！
 
-# API Auto Check Bot
+# APIAutoCheckBot
 
 📖[中文版README.md](#API例行功能檢查檢查機器人)📖
 
