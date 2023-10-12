@@ -85,7 +85,7 @@ api_data:
 
 ### 建議/問題報告
 
-如果您有任何建議或發現任何問題，請在[Issues](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/issues)提交您的反饋，我會盡快回覆！
+如果您有任何建議或發現任何問題，請在[Issues](https://github.com/KXX-Hub/API_Auto_Check_Bot/issues)提交您的反饋，我會盡快回覆！
 
 # API Auto Check Bot
 
