@@ -6,12 +6,18 @@
 ## 如何使用
 ### 關於 Line Notify
 
-1. 前往 https://notify-bot.line.me/en/ 並使用您的 Line 帳號登錄。
-2. 點擊「我的頁面」 > 生成 Token。
+1. #### 前往 https://notify-bot.line.me/en/ 並使用您的 Line 帳號登錄。
+
+2. #### 點擊「個人頁面」 > 發行權杖。
+
    <img width="700" src="./readme_imgs/Login_CN.jpg">
-3. 填入機器人名稱和聊天室名稱，並點擊生成權杖。
+   
+3. #### 填入機器人名稱和聊天室名稱，並點擊生成權杖。
+
    <img width="700" src="./readme_imgs/Generate_Token_CN.jpg">
-4. 複製權杖並填入 config.yaml 檔案中。
+   
+4. #### 複製權杖並**填入 config.yml** 檔案中。
+
    <img width="700" src="./readme_imgs/Copy_Token_CN.jpg">
 
 ### Requirements
@@ -43,14 +49,15 @@ api_data:
   - environment_name: Postman 環境的名稱 
   - use: 如果要檢查此 API，請設為 "True"，否則設為 "False"
 
-**您可以在 config.yaml 檔案中新增更多的 api_data。**
+**您可以在 config.yml 檔案中新增更多的 api_data。**
 
 ### 如何執行
-1. 安裝 requirements
-2. 在 config.yaml 檔案中輸入 Line Notify Token（如果沒有 Token：[關於Line Notify](#About-Line-Notify))
-3. 在 config.yaml 檔案中輸入 API 資料（如果沒有 config.yml，請執行 **main.py** 創建一個）
-4. 執行 **main.py** 生成 **collection資料夾**和**environment資料夾**
-5. 再次執行 **main.py** 以檢查 API 的狀態
+1. Clone 此專案或是下載最新版本的release
+2. 安裝 requirements (若下載release則跳過此步驟)
+3. 在 config.yaml 檔案中輸入 Line Notify Token（如果沒有 Token：[關於Line Notify](#About-Line-Notify))
+4. 在 config.yaml 檔案中輸入 API 資料（如果沒有 config.yml，請執行 **main.py** 創建一個） 
+5. 執行 **main.py** 生成 **collection資料夾**和**environment資料夾**
+6. 再次執行 **main.py** 以檢查 API 的狀態
 
 ## 貢獻
 
@@ -88,12 +95,17 @@ api_data:
 ## How to use
 ### About Line Notify
 
-1. Go to https://notify-bot.line.me/en/ and login with your Line account.
-2. Click on My Page > Generate Token.
+1. #### Go to https://notify-bot.line.me/en/ and login with your Line account.
+2. #### Click on My Page > Generate Token.
+
    <img width="700" src="./readme_imgs/Login_EN.jpg">
-3. Enter a name for the token and click on Generate Token.
+   
+3. #### Enter a name for the token and click on Generate Token.
+
    <img width="700" src="./readme_imgs/Generate_Token_EN.jpg">
-4. Copy the token and paste it in config.yaml.
+   
+4. #### Copy the token and **paste it in config.yaml**.
+
    <img width="700" src="./readme_imgs/Copy_Token_EN.jpg">
 
 ### Requirements
@@ -127,11 +139,12 @@ api_data:
 
   - **You can add more API data in config.yaml.**
 ### How to run
-1. Install requirements
-2. Enter the Line Notify Token in config.yaml(If you don't have token : [About Line Notify](#About-Line-Notify))
-3. Enter the API data in config.yaml(If there's no config.yml . Run **main.py** to creat one)
-4. Run **main.py** to get api collection folder and environment folder
-5. Run **main.py** again to check the status of API
+1. Clone this repo or download the latest release.
+2. Install requirements (If you download the latest release, skip this step)
+3. Enter the Line Notify Token in config.yaml(If you don't have token : [About Line Notify](#About-Line-Notify))
+4. Enter the API data in config.yaml(If there's no config.yml . Run **main.py** to creat one)
+5. Run **main.py** to get api collection folder and environment folder 
+6. Run **main.py** again to check the status of API
 
 ## Contributing to the Project
 
