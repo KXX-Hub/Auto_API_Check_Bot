@@ -15,17 +15,21 @@ def config_file_generator():
 # | API Auto Check Bot               |
 # | Made by KXX (MIT License)        |
 # ++--------------------------------++
-# input your line_notify_tokens
-line_notify_token: ""
-# input your api 1.4 environment name
-api_14_environment_name: ""
-# input your api 2.0 environment name
-api_20_environment_name: ""
-# If you want to use the api_2.0, please fill "True"
-api_2.0: "False"
-# If you want to use the api_1.4, please fill "True"
-api_1.4: "False"
+# input your line_notify_token
+line_notify_token: 'line_notify_token'
+
+# fill in the api_name and environment_name you want to check
+# you can add more api to check
+api_data:
+      - api_name: 'api_name'
+        environment_name: 'environment_name'
+        use: "True"
+
+      - api_name: 'api_name'
+        environment_name: 'environment_name'
+        use: "True"
 #-------------------------------------
+
 
 """
                 )
@@ -33,104 +37,103 @@ api_1.4: "False"
 
 
 def read_config():
-    """Read config file.
-    Check if config file exists, if not, create one.
-    if exists, read config file and return config with dict type.
+    """Read the config file.
+    Check if the config file exists, if not, create one.
+    If it exists, read the config file and return the configuration as a dictionary.
     :rtype: dict
     """
     if not exists('./config.yml'):
-        print("Config file not found, create one by default.\nPlease finish filling config.yml")
-        with open('config.yml', 'w', encoding="utf8"):
-            config_file_generator()
+        print("Config file not found, creating one by default.\nPlease finish filling config.yml")
+        config_file_generator()
 
     try:
         with open('config.yml', 'r', encoding="utf8") as f:
             data = yaml.load(f, Loader=SafeLoader)
+            line_notify_token = data.get('line_notify_token')
+            api_data = data.get('api_data', [])
             config = {
-                'line_notify_token': data['line_notify_token'],
-                'api_14_environment_name': data['api_14_environment_name'],
-                'api_20_environment_name': data['api_20_environment_name'],
-                'api_2.0': data['api_2.0'],
-                'api_1.4': data['api_1.4']
+                'line_notify_token': line_notify_token,
+                'api_data': api_data
             }
             return config
     except (KeyError, TypeError):
         print(
-            "An error occurred while reading config.yml, please check if the file is corrected filled.\n"
-            "If the problem can't be solved, consider delete config.yml and restart the program.\n")
+            "An error occurred while reading config.yml. Please check if the file is correctly filled.\n"
+            "If the problem can't be solved, consider deleting config.yml and restarting the program.\n")
         sys.exit()
 
 
-def check_files(check_14=False, check_20=False):
-    """Check if the environments folder and collections folder is empty.
+def check_files(api_data):
+    """Check if the collections folders are empty based on the 'use' flag in api_data.
+
+    :param api_data: List of dictionaries representing API data, each containing a 'use' flag.
     :return: None
     """
-    # Define the folder names
-    api_14_collections_folder = "api_1.4_collections"
-    api_20_collections_folder = "api_2.0_collections"
-    empty_folder = "false"
-    # Check if the created folders are empty
-    if check_14 and not os.listdir(api_14_collections_folder):
-        print(f"Error: The '{api_14_collections_folder}' folder is empty. Exiting.")
-        empty_folder = "true"
-    if check_20 and not os.listdir(api_20_collections_folder):
-        print(f"Error: The '{api_20_collections_folder}' folder is empty. Exiting.")
-        empty_folder = "true"
-    if empty_folder == "true":
-        sys.exit(1)
+    for api_info in api_data:
+        api_name = api_info['api_name']
+        environment_name = api_info['environment_name']
+        use = str_to_bool(api_info.get('use', False))
+        collections_folder = f"./collections/{api_name}"
+
+        if use and not os.listdir(collections_folder):
+            print(
+                f"Error: The '{collections_folder}' folder for API {api_name} and environment {environment_name} is empty.")
+            sys.exit(1)
 
 
-def str_to_bool(s):
+def str_to_bool(bool_str):
     """Convert a string to a boolean, case-insensitive.
-    :param s: The input string.
+    :param bool_str: The input string.
     :return: True if the string is "true" (case-insensitive), False otherwise.
     """
-    return s.lower() == "true"
+    return bool_str.lower() == "true"
 
 
-def check_folders(check_14=False, check_20=False):
-    """Check if the required folders exist, and create them if they don't.
+def check_folders(api_data):
+    """Check if the required folders exist and create them if they based on the 'use' flag in api_data.
+
+    :param api_data: List of dictionaries representing API data, each containing a 'use' flag.
     :return: None
     """
     # Define the folder names
+    collections_folder = "collections"
     environments_folder = "environments"
-    api_14_collections_folder = "api_1.4_collections"
-    api_20_collections_folder = "api_2.0_collections"
-    log_folder = "log"  # New line to check the "log" folder
+    log_folder = "log"
 
-    # Check if the "environments" folder exists, and create it if it doesn't
+    # Create the "environments" folder if it doesn't exist
     if not os.path.exists(environments_folder):
         os.makedirs(environments_folder)
         print(f"Created '{environments_folder}' folder.")
-
-    # Check and create the 1.4 collections folder if needed
-    if check_14 and not os.path.exists(api_14_collections_folder):
-        os.makedirs(api_14_collections_folder)
-        print(f"Created '{api_14_collections_folder}' folder.")
-
-    # Check and create the 2.0 collections folder if needed
-    if check_20 and not os.path.exists(api_20_collections_folder):
-        os.makedirs(api_20_collections_folder)
-        print(f"Created '{api_20_collections_folder}' folder.")
-
-    # Check if the "log" folder exists, and create it if it doesn't
+    # Create the "collections" folder if it doesn't exist
+    elif not os.path.exists(collections_folder):
+        os.makedirs(collections_folder)
+        print(f"Created '{collections_folder}' folder.")
+    # Create the "log" folder if it doesn't exist
     if not os.path.exists(log_folder):
         os.makedirs(log_folder)
         print(f"Created '{log_folder}' folder.")
 
-    # Check if any folder creation failed and exit the script
-    if (
-            not os.path.exists(environments_folder)
-            or (check_14 and not os.path.exists(api_14_collections_folder))
-            or (check_20 and not os.path.exists(api_20_collections_folder))
-            or not os.path.exists(log_folder)
-    ):
-        print("Error: Failed to create one or more folders. Exiting.")
-        sys.exit(1)
+    # Check and create collections folders based on the 'use' flag in api_data
+    for api_info in api_data:
+        api_name = api_info['api_name']
+        is_api_enable = str_to_bool(api_info.get('use', False))
+        collections_api_folder = os.path.join(collections_folder, api_name)
+
+        if is_api_enable and not os.path.exists(collections_api_folder):
+            os.makedirs(collections_api_folder)
+            print(f"Created '{collections_api_folder}' folder.")
+
+        # Check if folder creation failed and exit the script
+        if is_api_enable and not os.path.exists(collections_api_folder):
+            environment_name = api_info['environment_name']
+            print(
+                f"Error: Failed to create '{collections_api_folder}' folder for API {api_name} and environment {environment_name}. Exiting.")
+            sys.exit(1)
 
 
-def create_log_folder():
+def create_log_folder(api_data):
     """Create a folder for today's date and return the path.
+    :param api_data: List of dictionaries representing api data.
     :return: Path to today's folder
     """
     today_date = datetime.datetime.now().strftime("%Y%m%d")
@@ -146,15 +149,12 @@ def create_log_folder():
     if not os.path.exists(today_folder):
         os.makedirs(today_folder, exist_ok=True)
 
-    # Check if "1.4" is in the configuration and create a subfolder if present
-    if str_to_bool(read_config().get('api_1.4')):
-        api_1_4_folder = os.path.join(today_folder, "api 1.4")
-        os.makedirs(api_1_4_folder, exist_ok=True)
-
-    # Check if "2.0" is in the configuration and create a subfolder if present
-    if str_to_bool(read_config().get('api_2.0')):
-        api_2_0_folder = os.path.join(today_folder, "api 2.0")
-        os.makedirs(api_2_0_folder, exist_ok=True)
+    for api_info in api_data:
+        api_name = api_info['api_name']
+        is_api_enabled = str_to_bool(api_info.get('use', False))
+        if is_api_enabled:
+            api_folder = os.path.join(today_folder, api_name)
+            os.makedirs(api_folder, exist_ok=True)
 
     return today_folder
 
@@ -166,31 +166,4 @@ def remove_ansi_escape_codes(text):
     :rtype: str
     """
     return re.sub(r'\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]', '', text)
-
-
-def split_and_remove_log_file(collection_results_file, line_count, max_lines):
-    """Split the log file into multiple files if it exceeds the max lines.
-    :param str collection_results_file: Path to the log file.
-    :param collection_results_file:
-    :param line_count:
-    :param max_lines:
-    :return:
-    """
-    split_count = 1
-    with open(collection_results_file, 'r') as file:
-        lines = file.readlines()
-        current_split = []
-        for code_line in lines:
-            current_split.append(code_line)
-            if line_count == max_lines:
-                with open(f"{collection_results_file}_split{split_count}", 'w') as split_file:
-                    split_file.writelines(current_split)
-                split_count += 1
-                current_split = []
-            line_count += 1
-        if current_split:
-            with open(f"{collection_results_file}_split{split_count}", 'w') as split_file:
-                split_file.writelines(current_split)
-
-
 

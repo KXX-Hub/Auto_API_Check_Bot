@@ -1,16 +1,17 @@
 import subprocess
 import os
 import utilities as utils
+
 config = utils.read_config()
-is_api_20 = utils.str_to_bool(utils.read_config().get('api_2.0'))
-is_api_14 = utils.str_to_bool(utils.read_config().get('api_1.4'))
+api_data = config.get('api_data', [])
 
 
-def run_postman_collection(collection_name, collections_folder, environment_path, today_folder):
+def run_postman_collection(api_name, collection_name, collections_folder, environment_path, today_folder):
     """Run a Postman collection and return the output.
     :param str collection_name: Name of the collection to run.
     :param str collections_folder: Path to the folder containing the collections.
     :param str environment_path: Path to the environment file to use.
+    :param str api_name: Name of the API.
     :param str today_folder: Path to today's folder.
     :return: Tuple containing the collection name, output, path to the log file, and the line count.
     :rtype: tuple
@@ -40,23 +41,17 @@ def run_postman_collection(collection_name, collections_folder, environment_path
         error_output = utils.remove_ansi_escape_codes(error_output)
         # Handle errors if needed
         if completed_process.returncode != 0:
-            print(f"Error running collection")
             collection_output += f"Error running collection: {error_output}"
     except Exception as e:
         print(f"Error running collection: {e}")
         collection_output = f"Error running collection: {e}"
-
-    # Create a file to store today's results for this collection
-    if is_api_14:
-        collection_results_file = os.path.join(today_folder, "api 1.4", collection_name)
-    elif is_api_20:
-        collection_results_file = os.path.join(today_folder, "api 2.0", collection_name)
-    # Check if collection_output is None and provide a default value
-    if collection_output is None:
-        collection_output = ""
-
-    with open(collection_results_file, 'w', encoding='utf-8') as file:
-        file.write(collection_output)
+    if api_name:
+        collection_results_file = os.path.join(today_folder, api_name, collection_name)
+        # Check if collection_output is None and provide a default value
+        if collection_output is None:
+            collection_output = ""
+        with open(collection_results_file, 'w', encoding='utf-8') as file:
+            file.write(collection_output)
 
     line_count = len(collection_output.split('\n'))
 

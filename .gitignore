@@ -1,5 +1,4 @@
 config.yml
-api_1.4_collections
-api_2.0_collections
+collections
 environments
 log
