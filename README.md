@@ -90,10 +90,15 @@ api_data:
 
 1. Go to https://notify-bot.line.me/en/ and login with your Line account.
 2. Click on My Page > Generate Token.
+   
    <img width="700" src="./readme_imgs/1.jpg">
-3. Enter a name for the token and click on Generate Token.
+
+4. Enter a name for the token and click on Generate Token.
+   
    <img width="700" src="./readme_imgs/2.jpg">
-4. Copy the token and paste it in config.yaml.
+
+6. Copy the token and paste it in config.yaml.
+   
    <img width="700" src="./readme_imgs/3.jpg">
 
 ### Requirements
