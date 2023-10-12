@@ -1,5 +1,7 @@
 # API 例行功能檢查檢查機器人
+
 📖[英文版README.md](#APIAutoCheckBot)📖
+
 ## 這個專案可以自動檢查 API 的狀態，並在出現錯誤時發送Line Notify通知。
 ## 如何使用
 ### 關於 Line Notify
@@ -79,7 +81,9 @@ api_data:
 如果您有任何建議或發現任何問題，請在[Issues](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/issues)提交您的反饋，我會盡快回覆！
 
 # API Auto Check Bot
+
 📖[中文版README.md](#API例行功能檢查檢查機器人)📖
+
 ## This Project can automatically check the status of API and send notify when comes to error.
 ## How to use
 ### About Line Notify
